@@ -21,7 +21,7 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<Book> getCompleteData() throws Exception {
 		
-		return bookDAo.getCompleteData();
+		return bookDAo.findAllData();
 	}
 
 }

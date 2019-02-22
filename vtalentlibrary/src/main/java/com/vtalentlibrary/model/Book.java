@@ -8,15 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="book")
+@Table(name="Book")
 public class Book {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="book_ID")
+	@Column(name="bookId")
 	private Long bookId;
-	@Column(name="book_Name")
+	@Column(name="bookName")
 	private String bookName;
-	@Column(name="book_Author")
+	@Column(name="author")
 	private String author;
 	public Long getBookId() {
 		return bookId;
@@ -36,7 +36,4 @@ public class Book {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	
-	
-
 }

@@ -1,5 +1,7 @@
 package com.vtalentlibrary.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,13 @@ public class BookController {
 	private BookService bookService;
 	
 	@RequestMapping(value="/")
-	public String homePage(){
+	public String homePage() throws Exception{
+		List<Book>list=	bookService.getCompleteData();
+		for (Book book2 : list) {
+			System.out.println("author---"+book2.getAuthor());
+			System.out.println("book name---"+book2.getBookName());
+			
+		}
 		return "index";
 	}
 	@RequestMapping(value="/register", method=RequestMethod.POST)
@@ -25,7 +33,15 @@ public class BookController {
 		book.setAuthor(req.getParameter("bookAuthor"));
 		book.setBookName(req.getParameter("bookName"));
 		bookService.inserBook(book);
-		return new ModelAndView();
+	
+		return new ModelAndView("sucesses");
+	}
+	@RequestMapping(value="/getList",method=RequestMethod.GET)
+	public List<Book> getList(Book book) throws Exception{
+		List<Book>list=bookService.getCompleteData();
+		return list;
+		
+		
 	}
 	
 

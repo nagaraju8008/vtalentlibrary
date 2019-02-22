@@ -2,6 +2,8 @@ package com.vtalentlibrary.dao;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,12 +16,13 @@ import com.vtalentlibrary.model.Book;
 @Repository
 public class BookDAOImpl implements BookDAO {
 	@Autowired
-	private SessionFactory sessionFactory;
+	private SessionFactory sessionFac;
 	@Autowired
 	private HibernateTemplate hibernateTempalte;
 	
 
 	@Override
+	@Transactional
 	public int inserBook(Book book) throws Exception {
 //	Session session=sessionFactory.openSession();
 //	Transaction transaction=session.beginTransaction();
@@ -35,16 +38,16 @@ public class BookDAOImpl implements BookDAO {
 
 
 	@Override
-	public List<Book> getCompleteData() throws Exception {
-		Session session=sessionFactory.openSession();
-		Transaction transaction=session.beginTransaction();
-		Query query=session.createQuery("FROM Book");
+	@Transactional
+	public List<Book> findAllData() throws Exception {
+	  List<Book> list=(List<Book>) hibernateTempalte.find("from Book");
+	
 		
-		List<Book> list=query.list();
-		transaction.commit();
-		session.close();
-		sessionFactory.close();
 		return list;
+		
 	}
+
+
+	
 
 }
